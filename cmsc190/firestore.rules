@@ -1,0 +1,14 @@
+rules_version = '2';
+
+service cloud.firestore {
+    match /databases/{database}/documents {
+
+    function myspace(uid) { // refers to the fact that the path belongs to the user
+      return request.auth.uid == uid;
+    }
+  
+    match /users/{uid}/{document=**} {
+      allow write, read: if myspace(uid);
+    }
+  }
+}
