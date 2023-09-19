@@ -64,6 +64,7 @@ yarn-error.log
 
 # React Component Preview
 previewConfig.json
+ui-debug.log
 
 # Visual studio
 .vscode
@@ -71,3 +72,6 @@ previewConfig.json
 
 # Firebase
 google-services.json
+firebase-debug.log
+firestore-debug.log
+e2e/
