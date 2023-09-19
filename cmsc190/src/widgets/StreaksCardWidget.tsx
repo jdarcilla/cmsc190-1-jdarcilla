@@ -22,11 +22,15 @@ const StreaksCardWidget = () => {
               borderStyle: 'solid',
             },
           ]}>
-          <Text style={styles.streakInfoCount}>{`${currentStreak} days`}</Text>
+          <Text style={styles.streakInfoCount}>{`${currentStreak} day${
+            currentStreak !== 1 ? 's' : ''
+          }`}</Text>
           <Text style={styles.streakInfoText}>CURRENT STREAK</Text>
         </View>
         <View style={styles.streaksInfo}>
-          <Text style={styles.streakInfoCount}>{`${longestStreak} days`}</Text>
+          <Text style={styles.streakInfoCount}>{`${longestStreak} day${
+            longestStreak !== 1 ? 's' : ''
+          }`}</Text>
           <Text style={styles.streakInfoText}>LONGEST STREAK</Text>
         </View>
       </View>
