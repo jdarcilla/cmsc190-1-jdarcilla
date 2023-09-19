@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { validate } from 'nutso';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, ToastAndroid, View } from 'react-native';
+import { StyleSheet, ToastAndroid, View } from 'react-native';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import TextInput from '../components/TextInput';
@@ -27,7 +27,7 @@ const TaskEditModalWidget = ({ dismiss, task }: Props) => {
       ? task
       : {
           id: idFactory.id(),
-          createdIsoDateUtc: DateTime.now().toISO(),
+          createdIsoDateUtc: DateTime.now().toISO() ?? '',
           task: '',
           isDone: false,
         }
@@ -40,7 +40,7 @@ const TaskEditModalWidget = ({ dismiss, task }: Props) => {
 
     repo.task.put(
       { uid: userProvider.user.uid, taskId: newTask.id },
-      { ...newTask, createdIsoDateUtc: DateTime.now().toISO() }
+      { ...newTask, createdIsoDateUtc: DateTime.now().toISO() ?? '' }
     );
 
     ToastAndroid.show('Task added!', ToastAndroid.SHORT);
@@ -55,7 +55,7 @@ const TaskEditModalWidget = ({ dismiss, task }: Props) => {
         {
           currentStreak: 1,
           longestStreak: 1,
-          lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+          lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         }
       );
       return;
@@ -71,7 +71,7 @@ const TaskEditModalWidget = ({ dismiss, task }: Props) => {
     ) {
       const newCurrentStreak: number = stats.currentStreak + 1;
       const newStats: Partial<Stats> = {
-        lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+        lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         currentStreak: newCurrentStreak,
         longestStreak:
           stats.longestStreak > newCurrentStreak
@@ -84,10 +84,10 @@ const TaskEditModalWidget = ({ dismiss, task }: Props) => {
     // if streak last updated at least 2 days ago
     if (
       stats.lastUpdatedIsoDateUtc <=
-      currentDateTime.minus({ day: 2 }).toISODate()
+      (currentDateTime.minus({ day: 2 }).toISODate() ?? '')
     ) {
       const newStats: Partial<Stats> = {
-        lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+        lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         currentStreak: 1,
       };
       repo.stats.update({ uid: userProvider.user.uid }, newStats);
@@ -106,41 +106,37 @@ const TaskEditModalWidget = ({ dismiss, task }: Props) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
-          {task ? 'Edit Task' : 'Add Task'}
-        </Header>
-        <TextInput
-          label=""
-          value={newTask.task}
-          onChangeText={(text: string) => setTask({ ...newTask, task: text })}
-          numberOfLines={5}
-          multiline={true}
-          accessibilityLabelledBy={undefined}
-          accessibilityLanguage={undefined}
-          error={!validation.properties.task.isValid}
-          validation={validation.properties.task}
-          returnKeyType="next"
-        />
+    <View style={styles.container}>
+      <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
+        {task ? 'Edit Task' : 'Add Task'}
+      </Header>
+      <TextInput
+        label=""
+        value={newTask.task}
+        onChangeText={(text: string) => setTask({ ...newTask, task: text })}
+        numberOfLines={5}
+        multiline={true}
+        error={!validation.properties.task.isValid}
+        validation={validation.properties.task}
+        returnKeyType="next"
+      />
+      <Button
+        mode="contained"
+        onPress={() => onSave(stats)}
+        disabled={!validation.isValid}>
+        Save
+      </Button>
+      {task && (
         <Button
           mode="contained"
-          onPress={() => onSave(stats)}
-          disabled={!validation.isValid}>
-          Save
+          buttonColor={theme.colors.error}
+          textColor={theme.colors.onError}
+          style={{ marginBottom: 20 }}
+          onPress={onDelete}>
+          Delete
         </Button>
-        {task && (
-          <Button
-            mode="contained"
-            buttonColor={theme.colors.error}
-            textColor={theme.colors.onError}
-            style={{ marginBottom: 20 }}
-            onPress={onDelete}>
-            Delete
-          </Button>
-        )}
-      </View>
-    </ScrollView>
+      )}
+    </View>
   );
 };
 

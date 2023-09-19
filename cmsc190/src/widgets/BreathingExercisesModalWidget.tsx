@@ -20,6 +20,7 @@ import { MeditationStat } from '../core/models/Stats';
 import { repo } from '../core/repo/repo';
 import { theme } from '../core/theme';
 import { idFactory } from '../core/utils';
+import { meditationExerciseManager } from '../providers/meditationExerciseManager';
 import { meditationExercisesProvider } from '../providers/meditationExercisesProvider';
 import { userProvider } from '../providers/userProvider';
 import Visualizer from './Visualizer';
@@ -31,13 +32,18 @@ type Props = {
 };
 
 const BreathingExercisesModalWidget = ({ dismiss }: Props) => {
-  const [selectedExercise, setSelectedExercise] = useState<Meditation | undefined>(undefined); // prettier-ignore
+  const [selectedExercise, setSelectedExercise] = useState<Meditation | undefined>(meditationExerciseManager.exercise); // prettier-ignore
   const [isPlaying, setPlaying] = useState<boolean>(false);
 
   const breathingExercises = meditationExercisesProvider.breathingExercises;
 
   useEffect(() => {
     breathingExercises.forEach(exercise => exercise.audio.setVolume(1));
+
+    return () => {
+      meditationExerciseManager.exercise?.audio.stop();
+      meditationExerciseManager.setExercise(undefined);
+    };
   }, []);
 
   const playPause = (exercise: Meditation) => {
@@ -63,7 +69,7 @@ const BreathingExercisesModalWidget = ({ dismiss }: Props) => {
 
     const meditationStat: MeditationStat = {
       id: idFactory.id(),
-      createdIsoDateUtc: DateTime.now().toISO(),
+      createdIsoDateUtc: DateTime.now().toISO() ?? '',
       exercise: exercise.label,
     };
 
@@ -87,7 +93,10 @@ const BreathingExercisesModalWidget = ({ dismiss }: Props) => {
               <TouchableOpacity
                 key={exercise.label}
                 style={styles.button}
-                onPress={() => setSelectedExercise(exercise)}>
+                onPress={() => {
+                  setSelectedExercise(exercise);
+                  meditationExerciseManager.setExercise(exercise);
+                }}>
                 <Text
                   style={[
                     styles.text,
@@ -123,6 +132,7 @@ const BreathingExercisesModalWidget = ({ dismiss }: Props) => {
         onPress={() => {
           stop(selectedExercise);
           setSelectedExercise(undefined);
+          meditationExerciseManager.setExercise(undefined);
         }}>
         Back
       </Button>

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { validate } from 'nutso';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
+import { StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { Chip } from 'react-native-paper';
 import Button from '../components/Button';
 import Header from '../components/Header';
@@ -30,7 +30,7 @@ const JournalEntryEditModalWidget = ({ dismiss }: Props) => {
     supportiveEvidence: '',
     contradictoryEvidence: '',
     balancedThoughts: '',
-    createdIsoDateUtc: DateTime.now().toISO(),
+    createdIsoDateUtc: DateTime.now().toISO() ?? '',
   });
 
   const validation = validate(journalEntry, journalEntrySchema);
@@ -40,7 +40,7 @@ const JournalEntryEditModalWidget = ({ dismiss }: Props) => {
 
     repo.journalEntry.put(
       { uid: userProvider.user.uid, journalEntryId: journalEntry.id },
-      { ...journalEntry, createdIsoDateUtc: DateTime.now().toISO() }
+      { ...journalEntry, createdIsoDateUtc: DateTime.now().toISO() ?? '' }
     );
 
     ToastAndroid.show('Journal entry added!', ToastAndroid.SHORT);
@@ -55,7 +55,7 @@ const JournalEntryEditModalWidget = ({ dismiss }: Props) => {
         {
           currentStreak: 1,
           longestStreak: 1,
-          lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+          lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         }
       );
       return;
@@ -71,7 +71,7 @@ const JournalEntryEditModalWidget = ({ dismiss }: Props) => {
     ) {
       const newCurrentStreak: number = stats.currentStreak + 1;
       const newStats: Partial<Stats> = {
-        lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+        lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         currentStreak: newCurrentStreak,
         longestStreak:
           stats.longestStreak > newCurrentStreak
@@ -84,10 +84,10 @@ const JournalEntryEditModalWidget = ({ dismiss }: Props) => {
     // if streak last updated at least 2 days ago
     if (
       stats.lastUpdatedIsoDateUtc <=
-      currentDateTime.minus({ day: 2 }).toISODate()
+      (currentDateTime.minus({ day: 2 }).toISODate() ?? '')
     ) {
       const newStats: Partial<Stats> = {
-        lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+        lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         currentStreak: 1,
       };
       repo.stats.update({ uid: userProvider.user.uid }, newStats);
@@ -95,115 +95,103 @@ const JournalEntryEditModalWidget = ({ dismiss }: Props) => {
   };
 
   return (
-    <ScrollView>
-      <View style={{ padding: 20, paddingTop: 0 }}>
-        <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
-          Add Journal Entry
-        </Header>
-        <Text style={styles.headerText}>Situation</Text>
-        <TextInput
-          label=""
-          value={journalEntry.situation}
-          onChangeText={(text: string) =>
-            setJournalEntry({ ...journalEntry, situation: text })
-          }
-          numberOfLines={2}
-          multiline={true}
-          accessibilityLabelledBy={undefined}
-          accessibilityLanguage={undefined}
-          error={!validation.properties.situation.isValid}
-          validation={validation.properties.situation}
-          returnKeyType="next"
-        />
-        <Text style={[styles.headerText, { marginBottom: 12 }]}>Mood</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            gap: 8,
-            flexWrap: 'wrap',
-            marginBottom: 12,
-          }}>
-          {moods.map((mood, index) => (
-            <Chip
-              key={index}
-              mode="outlined"
-              onPress={() => setJournalEntry({ ...journalEntry, mood })}
-              selected={journalEntry.mood === mood}
-              showSelectedOverlay={true}
-              selectedColor={getCircleColorFromMood(mood)}>
-              {mood}
-            </Chip>
-          ))}
-        </View>
-        <Text style={styles.headerText}>Automatic Thoughts</Text>
-        <TextInput
-          label=""
-          value={journalEntry.automaticThoughts}
-          onChangeText={(text: string) =>
-            setJournalEntry({ ...journalEntry, automaticThoughts: text })
-          }
-          numberOfLines={2}
-          multiline={true}
-          accessibilityLabelledBy={undefined}
-          accessibilityLanguage={undefined}
-          error={!validation.properties.automaticThoughts.isValid}
-          validation={validation.properties.automaticThoughts}
-          returnKeyType="next"
-        />
-        <Text style={styles.headerText}>Supportive Evidence</Text>
-        <TextInput
-          label=""
-          value={journalEntry.supportiveEvidence}
-          onChangeText={(text: string) =>
-            setJournalEntry({ ...journalEntry, supportiveEvidence: text })
-          }
-          numberOfLines={2}
-          multiline={true}
-          accessibilityLabelledBy={undefined}
-          accessibilityLanguage={undefined}
-          error={!validation.properties.supportiveEvidence.isValid}
-          validation={validation.properties.supportiveEvidence}
-          returnKeyType="next"
-        />
-        <Text style={styles.headerText}>Contradictory Evidence</Text>
-        <TextInput
-          label=""
-          value={journalEntry.contradictoryEvidence}
-          onChangeText={(text: string) =>
-            setJournalEntry({ ...journalEntry, contradictoryEvidence: text })
-          }
-          numberOfLines={2}
-          multiline={true}
-          accessibilityLabelledBy={undefined}
-          accessibilityLanguage={undefined}
-          error={!validation.properties.contradictoryEvidence.isValid}
-          validation={validation.properties.contradictoryEvidence}
-          returnKeyType="next"
-        />
-        <Text style={styles.headerText}>Balanced Thoughts</Text>
-        <TextInput
-          label=""
-          value={journalEntry.balancedThoughts}
-          onChangeText={(text: string) =>
-            setJournalEntry({ ...journalEntry, balancedThoughts: text })
-          }
-          numberOfLines={2}
-          multiline={true}
-          accessibilityLabelledBy={undefined}
-          accessibilityLanguage={undefined}
-          error={!validation.properties.balancedThoughts.isValid}
-          validation={validation.properties.balancedThoughts}
-          returnKeyType="next"
-        />
-        <Button
-          mode="contained"
-          style={{ marginBottom: 20 }}
-          onPress={() => onSave(stats)}
-          disabled={!validation.isValid}>
-          Save
-        </Button>
+    <View style={{ padding: 20, paddingTop: 0 }}>
+      <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
+        Add Journal Entry
+      </Header>
+      <Text style={styles.headerText}>Situation</Text>
+      <TextInput
+        label=""
+        value={journalEntry.situation}
+        onChangeText={(text: string) =>
+          setJournalEntry({ ...journalEntry, situation: text })
+        }
+        numberOfLines={2}
+        multiline={true}
+        error={!validation.properties.situation.isValid}
+        validation={validation.properties.situation}
+        returnKeyType="next"
+      />
+      <Text style={[styles.headerText, { marginBottom: 12 }]}>Mood</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          gap: 8,
+          flexWrap: 'wrap',
+          marginBottom: 12,
+        }}>
+        {moods.map((mood, index) => (
+          <Chip
+            key={index}
+            mode="outlined"
+            onPress={() => setJournalEntry({ ...journalEntry, mood })}
+            selected={journalEntry.mood === mood}
+            showSelectedOverlay={true}
+            selectedColor={getCircleColorFromMood(mood)}>
+            {mood}
+          </Chip>
+        ))}
       </View>
-    </ScrollView>
+      <Text style={styles.headerText}>Automatic Thoughts</Text>
+      <TextInput
+        label=""
+        value={journalEntry.automaticThoughts}
+        onChangeText={(text: string) =>
+          setJournalEntry({ ...journalEntry, automaticThoughts: text })
+        }
+        numberOfLines={2}
+        multiline={true}
+        error={!validation.properties.automaticThoughts.isValid}
+        validation={validation.properties.automaticThoughts}
+        returnKeyType="next"
+      />
+      <Text style={styles.headerText}>Supportive Evidence</Text>
+      <TextInput
+        label=""
+        value={journalEntry.supportiveEvidence}
+        onChangeText={(text: string) =>
+          setJournalEntry({ ...journalEntry, supportiveEvidence: text })
+        }
+        numberOfLines={2}
+        multiline={true}
+        error={!validation.properties.supportiveEvidence.isValid}
+        validation={validation.properties.supportiveEvidence}
+        returnKeyType="next"
+      />
+      <Text style={styles.headerText}>Contradictory Evidence</Text>
+      <TextInput
+        label=""
+        value={journalEntry.contradictoryEvidence}
+        onChangeText={(text: string) =>
+          setJournalEntry({ ...journalEntry, contradictoryEvidence: text })
+        }
+        numberOfLines={2}
+        multiline={true}
+        error={!validation.properties.contradictoryEvidence.isValid}
+        validation={validation.properties.contradictoryEvidence}
+        returnKeyType="next"
+      />
+      <Text style={styles.headerText}>Balanced Thoughts</Text>
+      <TextInput
+        label=""
+        value={journalEntry.balancedThoughts}
+        onChangeText={(text: string) =>
+          setJournalEntry({ ...journalEntry, balancedThoughts: text })
+        }
+        numberOfLines={2}
+        multiline={true}
+        error={!validation.properties.balancedThoughts.isValid}
+        validation={validation.properties.balancedThoughts}
+        returnKeyType="next"
+      />
+      <Button
+        mode="contained"
+        style={{ marginBottom: 20 }}
+        onPress={() => onSave(stats)}
+        disabled={!validation.isValid}>
+        Save
+      </Button>
+    </View>
   );
 };
 

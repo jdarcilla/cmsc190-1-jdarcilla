@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { validate } from 'nutso';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, ToastAndroid, View } from 'react-native';
+import { StyleSheet, ToastAndroid, View } from 'react-native';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import TextInput from '../components/TextInput';
@@ -27,7 +27,7 @@ const RewardEditModalWidget = ({ dismiss, reward }: Props) => {
       ? reward
       : {
           id: idFactory.id(),
-          createdIsoDateUtc: DateTime.now().toISO(),
+          createdIsoDateUtc: DateTime.now().toISO() ?? '',
           reward: '',
           isDone: false,
         }
@@ -40,7 +40,7 @@ const RewardEditModalWidget = ({ dismiss, reward }: Props) => {
 
     repo.reward.put(
       { uid: userProvider.user.uid, rewardId: newReward.id },
-      { ...newReward, createdIsoDateUtc: DateTime.now().toISO() }
+      { ...newReward, createdIsoDateUtc: DateTime.now().toISO() ?? '' }
     );
 
     ToastAndroid.show('Reward added!', ToastAndroid.SHORT);
@@ -55,7 +55,7 @@ const RewardEditModalWidget = ({ dismiss, reward }: Props) => {
         {
           currentStreak: 1,
           longestStreak: 1,
-          lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+          lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         }
       );
       return;
@@ -71,7 +71,7 @@ const RewardEditModalWidget = ({ dismiss, reward }: Props) => {
     ) {
       const newCurrentStreak: number = stats.currentStreak + 1;
       const newStats: Partial<Stats> = {
-        lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+        lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         currentStreak: newCurrentStreak,
         longestStreak:
           stats.longestStreak > newCurrentStreak
@@ -84,10 +84,10 @@ const RewardEditModalWidget = ({ dismiss, reward }: Props) => {
     // if streak last updated at least 2 days ago
     if (
       stats.lastUpdatedIsoDateUtc <=
-      currentDateTime.minus({ day: 2 }).toISODate()
+      (currentDateTime.minus({ day: 2 }).toISODate() ?? '')
     ) {
       const newStats: Partial<Stats> = {
-        lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+        lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
         currentStreak: 1,
       };
       repo.stats.update({ uid: userProvider.user.uid }, newStats);
@@ -106,43 +106,39 @@ const RewardEditModalWidget = ({ dismiss, reward }: Props) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
-          {reward ? 'Edit Reward' : 'Add Reward'}
-        </Header>
-        <TextInput
-          label=""
-          value={newReward.reward}
-          onChangeText={(text: string) =>
-            setReward({ ...newReward, reward: text })
-          }
-          numberOfLines={5}
-          multiline={true}
-          accessibilityLabelledBy={undefined}
-          accessibilityLanguage={undefined}
-          error={!validation.properties.reward.isValid}
-          validation={validation.properties.reward}
-          returnKeyType="next"
-        />
+    <View style={styles.container}>
+      <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
+        {reward ? 'Edit Reward' : 'Add Reward'}
+      </Header>
+      <TextInput
+        label=""
+        value={newReward.reward}
+        onChangeText={(text: string) =>
+          setReward({ ...newReward, reward: text })
+        }
+        numberOfLines={5}
+        multiline={true}
+        error={!validation.properties.reward.isValid}
+        validation={validation.properties.reward}
+        returnKeyType="next"
+      />
+      <Button
+        mode="contained"
+        onPress={() => onSave(stats)}
+        disabled={!validation.isValid}>
+        Save
+      </Button>
+      {reward && (
         <Button
           mode="contained"
-          onPress={() => onSave(stats)}
-          disabled={!validation.isValid}>
-          Save
+          buttonColor={theme.colors.error}
+          textColor={theme.colors.onError}
+          style={{ marginBottom: 20 }}
+          onPress={onDelete}>
+          Delete
         </Button>
-        {reward && (
-          <Button
-            mode="contained"
-            buttonColor={theme.colors.error}
-            textColor={theme.colors.onError}
-            style={{ marginBottom: 20 }}
-            onPress={onDelete}>
-            Delete
-          </Button>
-        )}
-      </View>
-    </ScrollView>
+      )}
+    </View>
   );
 };
 

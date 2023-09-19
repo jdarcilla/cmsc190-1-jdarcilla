@@ -33,6 +33,7 @@ const DiaryScreen = ({ navigation }: Props) => {
       day: 'numeric',
       year: 'numeric',
     });
+
     return (
       <View style={styles.dateGroup}>
         <TouchableOpacity

@@ -13,8 +13,8 @@ class JournalEntriesProvider {
 
     return repo.journalEntries.bindCollectionQuery({
       key: { uid: userProvider.user.uid },
-      where: ['createdIsoDateUtc', '>=', dateTime.toISODate()],
-      where2: ['createdIsoDateUtc','<=',dateTime.plus({ day: 1 }).toISODate(),], // prettier-ignore
+      where: ['createdIsoDateUtc', '>=', dateTime.toISODate() ?? ''],
+      where2: ['createdIsoDateUtc','<=',(dateTime.plus({ day: 1 }).toISODate() ?? ''),], // prettier-ignore
       orderByDirection: 'asc',
       orderByField: 'createdIsoDateUtc',
     });
@@ -26,8 +26,8 @@ class JournalEntriesProvider {
 
     return repo.journalEntries.bindCollectionQuery({
       key: { uid: userProvider.user.uid },
-      where: ['createdIsoDateUtc', '>=', dateTime.toISODate()],
-      where2: ['createdIsoDateUtc','<=',dateTime.plus({ day: 1 }).toISODate(),], // prettier-ignore
+      where: ['createdIsoDateUtc', '>=', dateTime.toISODate() ?? ''],
+      where2: ['createdIsoDateUtc','<=',(dateTime.plus({ day: 1 }).toISODate() ?? ''),], // prettier-ignore
       orderByDirection: 'asc',
       orderByField: 'createdIsoDateUtc',
     });
@@ -42,9 +42,9 @@ class JournalEntriesProvider {
       where: [
         'createdIsoDateUtc',
         '>=',
-        dateTime.minus({ day: 1 }).toISODate(),
+        dateTime.minus({ day: 1 }).toISODate() ?? '',
       ],
-      where2: ['createdIsoDateUtc','<=',dateTime.toISODate(),], // prettier-ignore
+      where2: ['createdIsoDateUtc','<=',(dateTime.toISODate() ?? ''),], // prettier-ignore
       orderByDirection: 'asc',
       orderByField: 'createdIsoDateUtc',
     });
@@ -59,9 +59,9 @@ class JournalEntriesProvider {
       where: [
         'createdIsoDateUtc',
         '>=',
-        dateTime.minus({ day: 2 }).toISODate(),
+        dateTime.minus({ day: 2 }).toISODate() ?? '',
       ],
-      where2: ['createdIsoDateUtc','<=',dateTime.minus({ day: 1 }).toISODate(),], // prettier-ignore
+      where2: ['createdIsoDateUtc','<=',(dateTime.minus({ day: 1 }).toISODate() ?? ''),], // prettier-ignore
       orderByDirection: 'asc',
       orderByField: 'createdIsoDateUtc',
     });
@@ -76,9 +76,9 @@ class JournalEntriesProvider {
       where: [
         'createdIsoDateUtc',
         '>=',
-        dateTime.minus({ day: 3 }).toISODate(),
+        dateTime.minus({ day: 3 }).toISODate() ?? '',
       ],
-      where2: ['createdIsoDateUtc','<=',dateTime.minus({ day: 2 }).toISODate(),], // prettier-ignore
+      where2: ['createdIsoDateUtc','<=',(dateTime.minus({ day: 2 }).toISODate() ?? '')], // prettier-ignore
       orderByDirection: 'asc',
       orderByField: 'createdIsoDateUtc',
     });
@@ -93,9 +93,9 @@ class JournalEntriesProvider {
       where: [
         'createdIsoDateUtc',
         '>=',
-        dateTime.minus({ day: 4 }).toISODate(),
+        dateTime.minus({ day: 4 }).toISODate() ?? '',
       ],
-      where2: ['createdIsoDateUtc','<=',dateTime.minus({ day: 3 }).toISODate(),], // prettier-ignore
+      where2: ['createdIsoDateUtc','<=',(dateTime.minus({ day: 3 }).toISODate() ?? '')], // prettier-ignore
       orderByDirection: 'asc',
       orderByField: 'createdIsoDateUtc',
     });
@@ -110,9 +110,9 @@ class JournalEntriesProvider {
       where: [
         'createdIsoDateUtc',
         '>=',
-        dateTime.minus({ day: 5 }).toISODate(),
+        dateTime.minus({ day: 5 }).toISODate() ?? '',
       ],
-      where2: ['createdIsoDateUtc','<=',dateTime.minus({ day: 4 }).toISODate(),], // prettier-ignore
+      where2: ['createdIsoDateUtc','<=',(dateTime.minus({ day: 4 }).toISODate() ?? ''),], // prettier-ignore
       orderByDirection: 'asc',
       orderByField: 'createdIsoDateUtc',
     });
@@ -127,9 +127,9 @@ class JournalEntriesProvider {
       where: [
         'createdIsoDateUtc',
         '>=',
-        dateTime.minus({ day: 6 }).toISODate(),
+        dateTime.minus({ day: 6 }).toISODate() ?? '',
       ],
-      where2: ['createdIsoDateUtc','<=',dateTime.minus({ day: 5 }).toISODate(),], // prettier-ignore
+      where2: ['createdIsoDateUtc','<=',(dateTime.minus({ day: 5 }).toISODate() ?? '')], // prettier-ignore
       orderByDirection: 'asc',
       orderByField: 'createdIsoDateUtc',
     });

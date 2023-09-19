@@ -13,7 +13,7 @@ import TestModalWidget from './TestModalWidget';
 const TestResultCardWidget = () => {
   const stats = statsProvider.stats?.current();
   const testResults = stats?.testResults ?? [];
-  const latestTestResult = testResults.at(-1);
+  const latestTestResult = testResults.slice(-1)[0];
 
   const renderResult = (): React.ReactNode => {
     const scoreInterpretation = getScoreInterpretation(latestTestResult?.score);

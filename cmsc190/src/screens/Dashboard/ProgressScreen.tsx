@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { ScrollView } from 'react-native';
 import DashboardBackground from '../../components/DashboardBackground';
 import Header from '../../components/Header';
@@ -24,4 +25,4 @@ const ProgressScreen = ({ navigation }: Props) => {
   );
 };
 
-export default memo(ProgressScreen);
+export default observer(ProgressScreen);

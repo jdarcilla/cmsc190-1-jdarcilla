@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 import { memo, useEffect, useState } from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   ToastAndroid,
@@ -20,6 +19,7 @@ import { MeditationStat } from '../core/models/Stats';
 import { repo } from '../core/repo/repo';
 import { theme } from '../core/theme';
 import { idFactory } from '../core/utils';
+import { meditationExerciseManager } from '../providers/meditationExerciseManager';
 import { meditationExercisesProvider } from '../providers/meditationExercisesProvider';
 import { userProvider } from '../providers/userProvider';
 import Visualizer from './Visualizer';
@@ -31,13 +31,18 @@ type Props = {
 };
 
 const MeditationExercisesModalWidget = ({ dismiss }: Props) => {
-  const [selectedExercise, setSelectedExercise] = useState<Meditation | undefined>(undefined); // prettier-ignore
+  const [selectedExercise, setSelectedExercise] = useState<Meditation | undefined>(meditationExerciseManager.exercise); // prettier-ignore
   const [isPlaying, setPlaying] = useState<boolean>(false);
 
   const meditationExercises = meditationExercisesProvider.meditationExercises;
 
   useEffect(() => {
     meditationExercises.forEach(exercise => exercise.audio.setVolume(1));
+
+    return () => {
+      meditationExerciseManager.exercise?.audio.stop();
+      meditationExerciseManager.setExercise(undefined);
+    };
   }, []);
 
   const playPause = (exercise: Meditation) => {
@@ -63,7 +68,7 @@ const MeditationExercisesModalWidget = ({ dismiss }: Props) => {
 
     const meditationStat: MeditationStat = {
       id: idFactory.id(),
-      createdIsoDateUtc: DateTime.now().toISO(),
+      createdIsoDateUtc: DateTime.now().toISO() ?? '',
       exercise: exercise.label,
     };
 
@@ -77,37 +82,31 @@ const MeditationExercisesModalWidget = ({ dismiss }: Props) => {
 
   if (!selectedExercise)
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <Header
-            style={{
-              fontSize: theme.fonts.titleLarge.fontSize,
-            }}>
-            Meditate
-          </Header>
-          <View style={styles.content}>
-            {meditationExercises.map(exercise => (
-              <TouchableOpacity
-                key={exercise.label}
-                style={styles.button}
-                onPress={() => setSelectedExercise(exercise)}>
-                <Text
-                  style={[
-                    styles.text,
-                    { fontWeight: 'bold', marginBottom: 4 },
-                  ]}>
-                  {
-                    meditationExerciseLabel[
-                      exercise.label as MeditationExercise
-                    ]
-                  }
-                </Text>
-                <Text style={styles.text}>{exercise.text}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+      <View style={styles.container}>
+        <Header
+          style={{
+            fontSize: theme.fonts.titleLarge.fontSize,
+          }}>
+          Meditate
+        </Header>
+        <View style={styles.content}>
+          {meditationExercises.map(exercise => (
+            <TouchableOpacity
+              key={exercise.label}
+              style={styles.button}
+              onPress={() => {
+                setSelectedExercise(exercise);
+                meditationExerciseManager.setExercise(exercise);
+              }}>
+              <Text
+                style={[styles.text, { fontWeight: 'bold', marginBottom: 4 }]}>
+                {meditationExerciseLabel[exercise.label as MeditationExercise]}
+              </Text>
+              <Text style={styles.text}>{exercise.text}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
-      </ScrollView>
+      </View>
     );
   return (
     <View style={styles.container}>
@@ -130,6 +129,7 @@ const MeditationExercisesModalWidget = ({ dismiss }: Props) => {
         onPress={() => {
           stop(selectedExercise);
           setSelectedExercise(undefined);
+          meditationExerciseManager.setExercise(undefined);
         }}>
         Back
       </Button>

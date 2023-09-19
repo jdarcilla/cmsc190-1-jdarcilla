@@ -64,8 +64,6 @@ const LoginScreen = ({ navigation }: Props) => {
         autoComplete="email"
         textContentType="emailAddress"
         keyboardType="email-address"
-        accessibilityLabelledBy={undefined}
-        accessibilityLanguage={undefined}
       />
 
       <TextInput
@@ -76,8 +74,6 @@ const LoginScreen = ({ navigation }: Props) => {
         error={!passwordValidation.isValid}
         validation={passwordValidation}
         secureTextEntry
-        accessibilityLabelledBy={undefined}
-        accessibilityLanguage={undefined}
       />
 
       <Button

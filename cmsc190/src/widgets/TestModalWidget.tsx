@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
+import { StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import Button from '../components/Button';
 import Header from '../components/Header';
@@ -61,11 +61,11 @@ const TestModalWidget = ({ dismiss }: Props) => {
         {
           currentStreak: 0,
           longestStreak: 0,
-          lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+          lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
           testResults: [
             {
               score: getScore(currentAnswers),
-              lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+              lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
             },
           ],
         }
@@ -80,7 +80,7 @@ const TestModalWidget = ({ dismiss }: Props) => {
           ...testResults,
           {
             score: getScore(currentAnswers),
-            lastUpdatedIsoDateUtc: currentDateTime.toISODate(),
+            lastUpdatedIsoDateUtc: currentDateTime.toISODate() ?? '',
           },
         ],
       }
@@ -97,7 +97,7 @@ const TestModalWidget = ({ dismiss }: Props) => {
     question: Question;
   }): React.ReactNode => {
     return (
-      <View key={index} style={{ marginVertical: 20 }}>
+      <View style={{ marginVertical: 20 }}>
         <Text style={styles.questionLabel}>
           {index + 1}. {question.label}
         </Text>
@@ -125,7 +125,7 @@ const TestModalWidget = ({ dismiss }: Props) => {
     }, [currentQuestionIndex]);
 
     return (
-      <>
+      <View>
         <RadioButton.Group
           value={value}
           onValueChange={newValue => {
@@ -138,7 +138,7 @@ const TestModalWidget = ({ dismiss }: Props) => {
           )}
         </RadioButton.Group>
         {renderActions()}
-      </>
+      </View>
     );
   };
 
@@ -204,29 +204,25 @@ const TestModalWidget = ({ dismiss }: Props) => {
   };
 
   return (
-    <ScrollView>
-      <View style={{ padding: 20, paddingTop: 0 }}>
-        <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
-          BDI-II
-        </Header>
-        <Text style={styles.instructions}>
-          Instructions: This questionnaire consists of 21 groups of statements.
-          Please read each group of statements carefully. And then select one
-          statement in each group that best describes the way you have been
-          feeling during the past two weeks, including today. If several
-          statements in the group seem to apply equally well, select the last
-          choice for that group. Be sure that you do not choose more than one
-          statement for any group, including Item 16 (Changes in Sleeping
-          Pattern) or Item 18 (Changes in Appetite).
-        </Text>
-        <View>
-          {renderQuestion({
-            question: questions[currentQuestionIndex],
-            index: currentQuestionIndex,
-          })}
-        </View>
-      </View>
-    </ScrollView>
+    <View style={{ padding: 20, paddingTop: 0 }}>
+      <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
+        BDI-II
+      </Header>
+      <Text style={styles.instructions}>
+        Instructions: This questionnaire consists of 21 groups of statements.
+        Please read each group of statements carefully. And then select one
+        statement in each group that best describes the way you have been
+        feeling during the past two weeks, including today. If several
+        statements in the group seem to apply equally well, select the last
+        choice for that group. Be sure that you do not choose more than one
+        statement for any group, including Item 16 (Changes in Sleeping Pattern)
+        or Item 18 (Changes in Appetite).
+      </Text>
+      {renderQuestion({
+        question: questions[currentQuestionIndex],
+        index: currentQuestionIndex,
+      })}
+    </View>
   );
 };
 

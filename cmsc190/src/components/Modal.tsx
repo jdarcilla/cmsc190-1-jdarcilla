@@ -1,4 +1,4 @@
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
@@ -26,7 +26,10 @@ const Modal = ({ children, onDismiss }: Props) => {
       snapPoints={snapPoints}
       enableDismissOnClose={true}
       onChange={handleSheetChanges}>
-      {children}
+      <BottomSheetScrollView
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+        {children}
+      </BottomSheetScrollView>
     </BottomSheetModal>
   );
 };

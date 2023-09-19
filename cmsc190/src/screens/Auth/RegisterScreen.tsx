@@ -66,8 +66,6 @@ const RegisterScreen = ({ navigation }: Props) => {
         onChangeText={(text: string) => setName(text)}
         error={!nameValidation.isValid}
         validation={nameValidation}
-        accessibilityLabelledBy={undefined}
-        accessibilityLanguage={undefined}
       />
 
       <TextInput
@@ -81,8 +79,6 @@ const RegisterScreen = ({ navigation }: Props) => {
         textContentType="emailAddress"
         keyboardType="email-address"
         validation={emailValidation}
-        accessibilityLabelledBy={undefined}
-        accessibilityLanguage={undefined}
       />
 
       <TextInput
@@ -92,8 +88,6 @@ const RegisterScreen = ({ navigation }: Props) => {
         onChangeText={(text: string) => setPassword(text)}
         error={!passwordValidation.isValid}
         validation={passwordValidation}
-        accessibilityLabelledBy={undefined}
-        accessibilityLanguage={undefined}
         secureTextEntry
       />
 
