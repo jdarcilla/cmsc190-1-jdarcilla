@@ -1,10 +1,10 @@
+import { theme } from 'core';
 import React, { memo } from 'react';
 import Background from '../../components/Background';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import Logo from '../../components/Logo';
 import Paragraph from '../../components/Paragraph';
-import { theme } from '../../core/theme';
 import { Navigation } from '../../types';
 
 type Props = {

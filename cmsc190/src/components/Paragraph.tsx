@@ -1,6 +1,6 @@
+import { theme } from 'core';
 import React, { memo } from 'react';
 import { StyleSheet, Text, TextStyle } from 'react-native';
-import { theme } from '../core/theme';
 
 type Props = {
   style?: TextStyle;

@@ -1,9 +1,9 @@
+import { theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Card from '../components/Card';
-import { theme } from '../core/theme';
 import { dateTimeProvider } from '../providers/dateTimeProvider';
 import { modalApi } from '../providers/modalApi';
 import BreathingExercisesModalWidget from './BreathingExercisesModalWidget';

@@ -1,3 +1,4 @@
+import { theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -6,7 +7,6 @@ import { Text } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DashboardBackground from '../../components/DashboardBackground';
 import Header from '../../components/Header';
-import { theme } from '../../core/theme';
 import { dateTimeProvider } from '../../providers/dateTimeProvider';
 import { Navigation } from '../../types';
 import JournalEntriesCardWidget from '../../widgets/JournalEntriesCardWidget';

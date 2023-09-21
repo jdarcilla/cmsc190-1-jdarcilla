@@ -1,8 +1,8 @@
+import { theme } from 'core';
 import { ValidationResult } from 'nutso';
 import React, { memo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput as Input } from 'react-native-paper';
-import { theme } from '../core/theme';
 
 type Props = React.ComponentProps<typeof Input> & {
   validation: ValidationResult;

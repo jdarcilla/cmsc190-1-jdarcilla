@@ -1,8 +1,7 @@
+import { JournalEntry, repo } from 'core';
 import { DateTime } from 'luxon';
 import { computed, makeAutoObservable } from 'mobx';
 import { IResource } from 'mobx-utils';
-import { JournalEntry } from '../core/models/JournalEntry';
-import { repo } from '../core/repo/repo';
 import { dateTimeProvider } from './dateTimeProvider';
 import { userProvider } from './userProvider';
 

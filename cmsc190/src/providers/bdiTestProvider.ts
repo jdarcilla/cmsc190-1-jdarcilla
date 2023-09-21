@@ -1,4 +1,4 @@
-import { Question } from '../core/models/BDI-II';
+import { Question } from 'core';
 
 class BDITestProvider {
   questions: Question[] = [

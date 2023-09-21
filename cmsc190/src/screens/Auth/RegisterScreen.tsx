@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import { emailSchema, nameSchema, passwordSchema, theme } from 'core';
 import { validate } from 'nutso';
 import React, { memo, useState } from 'react';
 import {
@@ -14,10 +15,6 @@ import Button from '../../components/Button';
 import Header from '../../components/Header';
 import Logo from '../../components/Logo';
 import TextInput from '../../components/TextInput';
-import { emailSchema } from '../../core/schema/emailSchema';
-import { nameSchema } from '../../core/schema/nameSchema';
-import { passwordSchema } from '../../core/schema/passwordSchema';
-import { theme } from '../../core/theme';
 import { userProvider } from '../../providers/userProvider';
 import { Navigation } from '../../types';
 

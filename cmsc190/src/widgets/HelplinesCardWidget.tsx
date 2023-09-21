@@ -1,7 +1,7 @@
+import { theme } from 'core';
 import { memo } from 'react';
 import { Linking, StyleSheet, Text, View } from 'react-native';
 import Card from '../components/Card';
-import { theme } from '../core/theme';
 
 const HelplinesCardWidget = () => {
   const dialNumber = (number: string): void => {

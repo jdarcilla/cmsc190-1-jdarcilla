@@ -1,0 +1,23 @@
+{
+  "name": "depressnt",
+  "version": "1.0.0",
+  "description": "CMSC190 SP",
+  "main": "index.js",
+  "author": "Jaimy Arcilla <jdarcilla@up.edu.ph>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest",
+    "start-emulators": "firebase emulators:start --import e2e/localdata --export-on-exit",
+    "export-emulators": "firebase emulators:export e2e/localdata",
+    "kill-all": "lsof -t -i:4000 -i:9099 -i:5001 -i:8080 | xargs kill -9"
+  },
+  "workspaces": ["cmsc190", "core", "functions"],
+  "resolutions": {
+    "metro-config": "0.76.5"
+  }
+}

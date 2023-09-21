@@ -1,3 +1,4 @@
+import { JournalEntryEvent, getJournalEntryEvent, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -6,9 +7,6 @@ import { Text } from 'react-native-paper';
 import Timeline from 'react-native-timeline-flatlist';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Card from '../components/Card';
-import { JournalEntryEvent } from '../core/models/JournalEntry';
-import { theme } from '../core/theme';
-import { getJournalEntryEvent } from '../core/utils';
 import { dateTimeProvider } from '../providers/dateTimeProvider';
 import { journalEntriesProvider } from '../providers/journalEntriesProvider';
 import { modalApi } from '../providers/modalApi';

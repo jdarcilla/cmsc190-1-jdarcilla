@@ -4,6 +4,12 @@
  *
  * @format
  */
+const path = require("path");
+
+
+const watchFolders = [
+  path.resolve(__dirname, "../node_modules")
+]
 
 module.exports = {
   transformer: {
@@ -14,4 +20,5 @@ module.exports = {
       },
     }),
   },
+  watchFolders
 };

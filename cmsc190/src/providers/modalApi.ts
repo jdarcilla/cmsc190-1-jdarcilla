@@ -1,5 +1,5 @@
+import { idFactory } from 'core';
 import { action, makeAutoObservable, observable, toJS } from 'mobx';
-import { idFactory } from '../core/utils';
 
 export type ModalInfo = {
   id: string;

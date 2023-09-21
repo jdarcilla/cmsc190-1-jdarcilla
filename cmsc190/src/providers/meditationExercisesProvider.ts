@@ -1,9 +1,5 @@
+import { BreathingExercise, Meditation, MeditationExercise } from 'core';
 import Sound from 'react-native-sound';
-import {
-  BreathingExercise,
-  Meditation,
-  MeditationExercise,
-} from '../core/models/MeditationExercise';
 const deep_breathing_wav = require('../assets/audio/deep_breathing.wav');
 const breathe_focus_wav = require('../assets/audio/breathe_focus.wav');
 const equal_time_wav = require('../assets/audio/equal_time.wav');

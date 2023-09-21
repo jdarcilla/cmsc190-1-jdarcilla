@@ -1,7 +1,7 @@
+import { theme } from 'core';
 import { observer } from 'mobx-react-lite';
 import { StyleSheet, Text, View } from 'react-native';
 import Card from '../components/Card';
-import { theme } from '../core/theme';
 import { userProvider } from '../providers/userProvider';
 
 const UserDataCardWidget = () => {

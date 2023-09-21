@@ -1,8 +1,8 @@
-import { DateTime } from 'luxon';
-import { Answer } from './models/BDI-II';
-import { JournalEntry, JournalEntryEvent, Mood } from './models/JournalEntry';
-import { ScoreInterpretation } from './models/ScoreInterpretation';
-import { theme } from './theme';
+import { DateTime } from "luxon";
+import { Answer } from "./models/BDI-II";
+import { JournalEntry, JournalEntryEvent, Mood } from "./models/JournalEntry";
+import { ScoreInterpretation } from "./models/ScoreInterpretation";
+import { theme } from "./theme";
 
 /**
  * We need our ids to be short enough and also be distributed over time.
@@ -23,15 +23,15 @@ export const getCircleColorFromMood = (mood: Mood): string => {
     case Mood.Happy:
       return theme.colors.primary;
     case Mood.Sad:
-      return '#FFA000';
+      return "#FFA000";
     case Mood.Afraid:
-      return '#303F9F';
+      return "#303F9F";
     case Mood.Disgusted:
-      return '#616161';
+      return "#616161";
     case Mood.Angry:
-      return '#D32F2F';
+      return "#D32F2F";
     case Mood.Surprised:
-      return '#2E7D32';
+      return "#2E7D32";
     default:
       return theme.colors.primary;
   }
@@ -40,7 +40,7 @@ export const getCircleColorFromMood = (mood: Mood): string => {
 export const undef2null = (obj: any) => {
   if (!obj) return;
   for (let k in obj) {
-    if (obj[k] && typeof obj[k] === 'object') {
+    if (obj[k] && typeof obj[k] === "object") {
       undef2null(obj[k]);
     } else {
       if (obj[k] === undefined) obj[k] = null;

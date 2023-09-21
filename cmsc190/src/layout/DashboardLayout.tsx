@@ -1,10 +1,10 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { theme } from 'core';
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ModalContainer from '../components/ModalContainer';
-import { theme } from '../core/theme';
 import DiaryScreen from '../screens/Dashboard/DiaryScreen';
 import ProfileScreen from '../screens/Dashboard/ProfileScreen';
 import ProgressScreen from '../screens/Dashboard/ProgressScreen';

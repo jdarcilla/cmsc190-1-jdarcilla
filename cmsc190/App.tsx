@@ -1,8 +1,8 @@
+import { theme } from 'core';
 import React, { useEffect } from 'react';
 import { Provider } from 'react-native-paper';
 import SplashScreen from 'react-native-splash-screen';
 import App from './src';
-import { theme } from './src/core/theme';
 
 const Main = () => {
   useEffect(() => {

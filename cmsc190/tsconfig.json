@@ -5,9 +5,14 @@
     "module": "CommonJS", // which system for the program AMD, UMD, System, CommonJS
 
     // Recommended: Compiler complains about expressions implicitly typed as 'any'
-    "noImplicitAny": true, 
+    "noImplicitAny": true
   },
   "extends": "@tsconfig/react-native/tsconfig.json",
   "include": ["src"], // which files to compile
   "exclude": ["node_modules"], // which files to skip
+  "references": [
+    {
+        "path": "../core"
+    },
+  ]
 }

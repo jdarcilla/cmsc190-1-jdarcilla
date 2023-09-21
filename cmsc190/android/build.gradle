@@ -20,3 +20,12 @@ buildscript {
         classpath('com.google.gms:google-services:4.3.15')
     }
 }
+
+allprojects {
+    project.pluginManager.withPlugin("com.facebook.react") {
+        react {
+            reactNativeDir = rootProject.file("../../node_modules/react-native/")
+            codegenDir = rootProject.file("../../node_modules/react-native-codegen/")
+        }
+    }
+}

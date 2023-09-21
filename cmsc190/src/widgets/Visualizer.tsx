@@ -1,7 +1,7 @@
+import { theme } from 'core';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { theme } from '../core/theme';
 
 const AudioVisualizer = (props: { currentVolume: number }) => {
   const currentVolume = props.currentVolume ?? 0;

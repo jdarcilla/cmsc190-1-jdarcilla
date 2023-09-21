@@ -1,6 +1,6 @@
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import { fs } from './fb';
-import { undef2null } from './utils';
+import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore";
+import { undef2null } from "core";
+import { fs } from "./fb";
 
 export type Cursor =
   FirebaseFirestoreTypes.QueryDocumentSnapshot<FirebaseFirestoreTypes.DocumentData>;
@@ -30,7 +30,7 @@ const buildCollectionQuery = <T>(args: {
   where: [string, FirebaseFirestoreTypes.WhereFilterOp, string];
   where2?: [string, FirebaseFirestoreTypes.WhereFilterOp, string];
   orderByField: Extract<keyof T, string>;
-  orderByDirection: 'desc' | 'asc';
+  orderByDirection: "desc" | "asc";
   limit?: number;
   cursor?: Cursor;
 }) => {

@@ -1,16 +1,16 @@
-import Sound from 'react-native-sound';
+const Sound = require("react-native-sound");
 
 export type Meditation = {
   label: BreathingExercise | MeditationExercise;
-  audio: Sound;
+  audio: typeof Sound;
   text: string;
   link: string;
 };
 
 export enum BreathingExercise {
-  DeepBreathing = 'DEEP_BREATHING',
-  BreathFocus = 'BREATHE_FOCUS',
-  EqualTime = 'EQUAL_TIME',
+  DeepBreathing = "DEEP_BREATHING",
+  BreathFocus = "BREATHE_FOCUS",
+  EqualTime = "EQUAL_TIME",
 }
 
 export const breathingExercises = [
@@ -20,15 +20,15 @@ export const breathingExercises = [
 ];
 
 export const breathingExerciseLabel: { [key in BreathingExercise]: string } = {
-  DEEP_BREATHING: 'DEEP BREATHING',
-  BREATHE_FOCUS: 'BREATHE FOCUS',
-  EQUAL_TIME: 'EQUAL TIME',
+  DEEP_BREATHING: "DEEP BREATHING",
+  BREATHE_FOCUS: "BREATHE FOCUS",
+  EQUAL_TIME: "EQUAL TIME",
 };
 
 export enum MeditationExercise {
-  SensesAndBreath = 'SENSES_AND_BREATH',
-  BodyScan = 'BODY_SCAN',
-  ThoughtsAndFeelings = 'THOUGHTS_AND_FEELINGS',
+  SensesAndBreath = "SENSES_AND_BREATH",
+  BodyScan = "BODY_SCAN",
+  ThoughtsAndFeelings = "THOUGHTS_AND_FEELINGS",
 }
 
 export const meditationExercises = [
@@ -39,7 +39,7 @@ export const meditationExercises = [
 
 export const meditationExerciseLabel: { [key in MeditationExercise]: string } =
   {
-    SENSES_AND_BREATH: 'SENSES AND BREATH',
-    BODY_SCAN: 'BODY SCAN',
-    THOUGHTS_AND_FEELINGS: 'THOUGHTS AND FEELINGS',
+    SENSES_AND_BREATH: "SENSES AND BREATH",
+    BODY_SCAN: "BODY SCAN",
+    THOUGHTS_AND_FEELINGS: "THOUGHTS AND FEELINGS",
   };

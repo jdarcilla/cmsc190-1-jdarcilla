@@ -1,3 +1,4 @@
+import { Stats, Task, idFactory, repo, taskSchema, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { validate } from 'nutso';
@@ -6,12 +7,6 @@ import { StyleSheet, ToastAndroid, View } from 'react-native';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import TextInput from '../components/TextInput';
-import { Stats } from '../core/models/Stats';
-import { Task } from '../core/models/Task';
-import { repo } from '../core/repo/repo';
-import { taskSchema } from '../core/schema/taskSchema';
-import { theme } from '../core/theme';
-import { idFactory } from '../core/utils';
 import { statsProvider } from '../providers/statsProvider';
 import { userProvider } from '../providers/userProvider';
 

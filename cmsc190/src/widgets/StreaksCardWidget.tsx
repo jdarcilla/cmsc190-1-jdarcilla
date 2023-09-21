@@ -1,7 +1,7 @@
+import { theme } from 'core';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { theme } from '../core/theme';
 import { statsProvider } from '../providers/statsProvider';
 
 const StreaksCardWidget = () => {

@@ -1,7 +1,7 @@
+import { theme } from 'core';
 import React, { memo } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { Card as PaperCard } from 'react-native-paper';
-import { theme } from '../core/theme';
 
 type Props = {
   children: React.ReactNode;

@@ -1,11 +1,11 @@
-import { computed, makeAutoObservable } from 'mobx';
-import { IResource } from 'mobx-utils';
-import { Stats } from '../core/models/Stats';
-import { repo } from '../core/repo/repo';
 import {
+  Stats,
   getEnergyLevelFromMood,
   getPleasantnessLevelFromMood,
-} from '../core/utils';
+  repo,
+} from 'core';
+import { computed, makeAutoObservable } from 'mobx';
+import { IResource } from 'mobx-utils';
 import { journalEntriesProvider } from './journalEntriesProvider';
 import { userProvider } from './userProvider';
 

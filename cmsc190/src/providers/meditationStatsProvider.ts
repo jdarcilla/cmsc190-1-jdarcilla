@@ -1,7 +1,6 @@
+import { MeditationStat, repo } from 'core';
 import { computed, makeAutoObservable } from 'mobx';
 import { IResource } from 'mobx-utils';
-import { MeditationStat } from '../core/models/Stats';
-import { repo } from '../core/repo/repo';
 import { dateTimeProvider } from './dateTimeProvider';
 import { userProvider } from './userProvider';
 

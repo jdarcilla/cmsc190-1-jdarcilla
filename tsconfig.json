@@ -1,0 +1,14 @@
+{
+  "exclude": ["node_modules", "build"],
+  "references": [
+    {
+        "path": "./cmsc190"
+    },
+    {
+        "path": "./core"
+    },
+    {
+      "path": "./functions"
+    }
+  ],
+ }

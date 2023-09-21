@@ -1,5 +1,5 @@
+import { Meditation } from 'core';
 import { action, makeAutoObservable, observable } from 'mobx';
-import { Meditation } from '../core/models/MeditationExercise';
 
 class MeditationExerciseManager {
   constructor() {

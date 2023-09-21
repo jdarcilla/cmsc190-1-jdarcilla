@@ -1,3 +1,4 @@
+import { Answer, Question, getScore, repo, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -5,10 +6,6 @@ import { StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import Button from '../components/Button';
 import Header from '../components/Header';
-import { Answer, Question } from '../core/models/BDI-II';
-import { repo } from '../core/repo/repo';
-import { theme } from '../core/theme';
-import { getScore } from '../core/utils';
 import { bdiTestProvider } from '../providers/bdiTestProvider';
 import { statsProvider } from '../providers/statsProvider';
 import { userProvider } from '../providers/userProvider';

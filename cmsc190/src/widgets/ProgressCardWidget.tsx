@@ -1,7 +1,7 @@
+import { theme } from 'core';
 import { observer } from 'mobx-react-lite';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Card from '../components/Card';
-import { theme } from '../core/theme';
 import { journalEntriesProvider } from '../providers/journalEntriesProvider';
 import { meditationStatsProvider } from '../providers/meditationStatsProvider';
 import { tasksProvider } from '../providers/tasksProvider';

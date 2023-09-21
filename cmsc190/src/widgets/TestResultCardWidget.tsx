@@ -1,11 +1,9 @@
+import { getScoreInterpretation, scoreInterpretationLabel, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../components/Button';
 import Card from '../components/Card';
-import { scoreInterpretationLabel } from '../core/models/ScoreInterpretation';
-import { theme } from '../core/theme';
-import { getScoreInterpretation } from '../core/utils';
 import { modalApi } from '../providers/modalApi';
 import { statsProvider } from '../providers/statsProvider';
 import TestModalWidget from './TestModalWidget';

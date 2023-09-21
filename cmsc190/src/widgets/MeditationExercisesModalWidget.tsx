@@ -1,3 +1,12 @@
+import {
+  Meditation,
+  MeditationExercise,
+  MeditationStat,
+  idFactory,
+  meditationExerciseLabel,
+  repo,
+  theme,
+} from 'core';
 import { DateTime } from 'luxon';
 import { memo, useEffect, useState } from 'react';
 import {
@@ -10,15 +19,6 @@ import {
 import Sound from 'react-native-sound';
 import Button from '../components/Button';
 import Header from '../components/Header';
-import {
-  Meditation,
-  MeditationExercise,
-  meditationExerciseLabel,
-} from '../core/models/MeditationExercise';
-import { MeditationStat } from '../core/models/Stats';
-import { repo } from '../core/repo/repo';
-import { theme } from '../core/theme';
-import { idFactory } from '../core/utils';
 import { meditationExerciseManager } from '../providers/meditationExerciseManager';
 import { meditationExercisesProvider } from '../providers/meditationExercisesProvider';
 import { userProvider } from '../providers/userProvider';

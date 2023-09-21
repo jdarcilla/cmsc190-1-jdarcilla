@@ -1,9 +1,9 @@
+import { theme } from 'core';
 import { observer } from 'mobx-react-lite';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart';
 import Card from '../components/Card';
-import { theme } from '../core/theme';
 import { dateTimeProvider } from '../providers/dateTimeProvider';
 import { statsProvider } from '../providers/statsProvider';
 

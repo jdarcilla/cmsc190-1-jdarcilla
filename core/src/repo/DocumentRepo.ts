@@ -1,8 +1,8 @@
-import firestore from '@react-native-firebase/firestore';
-import { fromResource, IResource } from 'mobx-utils';
-import { ToastAndroid } from 'react-native';
-import { firestoreApi } from '../firestoreApi';
-import { BaseRepo } from './BaseRepo';
+import firestore from "@react-native-firebase/firestore";
+import { fromResource, IResource } from "mobx-utils";
+import { ToastAndroid } from "react-native";
+import { firestoreApi } from "../firestoreApi";
+import { BaseRepo } from "./BaseRepo";
 
 export class DocumentRepo<K, T> extends BaseRepo<K, T> {
   //
@@ -25,16 +25,16 @@ export class DocumentRepo<K, T> extends BaseRepo<K, T> {
   bind = (key: K, _default?: T): IResource<T | null | undefined> => {
     let disposer: () => void;
     return fromResource<T | null | undefined>(
-      sink => {
+      (sink) => {
         console.log(`Subscribing `, key);
         disposer = firestore()
           .doc(this.firestorePath.path(key))
           .onSnapshot(
-            snap => {
+            (snap) => {
               if (snap.exists) sink(snap.data() as T);
               else sink(_default ?? null);
             },
-            error => {
+            (error) => {
               console.error(`${this.firestorePath.path(key)}`, error);
               ToastAndroid.show(error.message, ToastAndroid.SHORT);
               sink(null);

@@ -1,10 +1,7 @@
+import { JournalEntryEvent, getCircleColorFromMood, repo, theme } from 'core';
 import { observer } from 'mobx-react-lite';
 import { ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { Button, Chip } from 'react-native-paper';
-import { JournalEntryEvent } from '../core/models/JournalEntry';
-import { repo } from '../core/repo/repo';
-import { theme } from '../core/theme';
-import { getCircleColorFromMood } from '../core/utils';
 import { journalEntriesProvider } from '../providers/journalEntriesProvider';
 import { userProvider } from '../providers/userProvider';
 

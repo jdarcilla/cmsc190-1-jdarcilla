@@ -1,3 +1,4 @@
+import { Task, repo, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -5,9 +6,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Card from '../components/Card';
-import { Task } from '../core/models/Task';
-import { repo } from '../core/repo/repo';
-import { theme } from '../core/theme';
 import { dateTimeProvider } from '../providers/dateTimeProvider';
 import { modalApi } from '../providers/modalApi';
 import { tasksProvider } from '../providers/tasksProvider';
