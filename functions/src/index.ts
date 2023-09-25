@@ -11,7 +11,7 @@ const {
 const { createUser } = require("./user/createUser");
 
 exports.sendGoalNotification = functions.pubsub
-  .schedule("*/10 * * * *")
+  .schedule("0 19 * * *")
   .timeZone("Asia/Manila")
   .onRun(async () => {
     functions.logger.log("GOAL NOTIFICATION FROM CLOUD FUNCTION");
@@ -20,7 +20,7 @@ exports.sendGoalNotification = functions.pubsub
   });
 
 exports.sendTestNotification = functions.pubsub
-  .schedule("*/10 * * * *")
+  .schedule("0 19 * */1 *")
   .timeZone("Asia/Manila")
   .onRun(async () => {
     functions.logger.log("TEST NOTIFICATION FROM CLOUD FUNCTION");
