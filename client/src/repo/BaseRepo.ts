@@ -1,4 +1,4 @@
-import { FirestorePath } from '../paths/FirestorePath';
+import { FirestorePath } from "core";
 
 export abstract class BaseRepo<K, T> {
   protected firestorePath: FirestorePath<K, T>;

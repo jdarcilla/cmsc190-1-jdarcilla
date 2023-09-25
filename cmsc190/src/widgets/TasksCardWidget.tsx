@@ -1,4 +1,5 @@
-import { Task, repo, theme } from 'core';
+import { repo } from 'client';
+import { Task, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -75,7 +76,9 @@ const TasksCardWidget = () => {
     return (
       <View style={styles.task} key={task.id}>
         <Checkbox status={status} onPress={() => onUpdateTaskStatus(task)} />
-        <TouchableOpacity onPress={() => onEditTask(task)}>
+        <TouchableOpacity
+          onPress={() => onEditTask(task)}
+          style={{ flexShrink: 1 }}>
           <Text style={{ color: theme.colors.onSurface }}>{task.task}</Text>
         </TouchableOpacity>
       </View>

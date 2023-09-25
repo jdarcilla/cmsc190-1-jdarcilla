@@ -1,4 +1,5 @@
-import { JournalEntryEvent, getCircleColorFromMood, repo, theme } from 'core';
+import { repo } from 'client';
+import { JournalEntryEvent, getCircleColorFromMood, theme } from 'core';
 import { observer } from 'mobx-react-lite';
 import { ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { Button, Chip } from 'react-native-paper';
@@ -17,10 +18,10 @@ const JournalEntryModalWidget = ({ journalEntryEvent, dismiss }: Props) => {
       journalEntry => journalEntry.id === journalEntryEvent.journalEntryId
     );
 
-  const onDelete = async () => {
+  const onDelete = () => {
     if (!userProvider.user) return;
     if (!journalEntry) return;
-    await repo.journalEntry.delete({
+    repo.journalEntry.delete({
       uid: userProvider.user.uid,
       journalEntryId: journalEntry.id,
     });

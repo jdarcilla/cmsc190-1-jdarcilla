@@ -1,18 +1,18 @@
-import { JournalEntry } from '../models/JournalEntry';
+import { JournalEntry } from "../models/JournalEntry";
 import {
   JournalEntryKey,
   MeditationStatKey,
   RewardKey,
   TaskKey,
   UserKey,
-} from '../models/Keys';
-import { Reward } from '../models/Reward';
-import { MeditationStat, Stats } from '../models/Stats';
-import { Task } from '../models/Task';
-import { User } from '../models/User';
-import { FirestorePath } from './FirestorePath';
+} from "../models/Keys";
+import { Reward } from "../models/Reward";
+import { MeditationStat, Stats } from "../models/Stats";
+import { Task } from "../models/Task";
+import { User } from "../models/User";
+import { FirestorePath } from "./FirestorePath";
 
-const users = new FirestorePath<void, void>('users');
+const users = new FirestorePath<void, void>("users");
 const user = new FirestorePath<UserKey, User>(`${users.template}/{uid}`);
 
 const stats = new FirestorePath<UserKey, Stats>(`${user.template}/stats/data`);

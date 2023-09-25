@@ -1,4 +1,5 @@
-import { Task, repo } from 'core';
+import { repo } from 'client';
+import { Task } from 'core';
 import { computed, makeAutoObservable } from 'mobx';
 import { IResource } from 'mobx-utils';
 import { dateTimeProvider } from './dateTimeProvider';

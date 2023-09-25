@@ -1,4 +1,5 @@
-import { Reward, Stats, idFactory, repo, rewardSchema, theme } from 'core';
+import { repo } from 'client';
+import { Reward, Stats, idFactory, rewardSchema, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { validate } from 'nutso';
@@ -89,10 +90,10 @@ const RewardEditModalWidget = ({ dismiss, reward }: Props) => {
     }
   };
 
-  const onDelete = async () => {
+  const onDelete = () => {
     if (!userProvider.user) return;
     if (!reward) return;
-    await repo.reward.delete({
+    repo.reward.delete({
       uid: userProvider.user.uid,
       rewardId: reward.id,
     });

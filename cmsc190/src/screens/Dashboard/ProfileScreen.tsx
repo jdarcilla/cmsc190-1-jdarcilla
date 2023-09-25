@@ -7,6 +7,7 @@ import Header from '../../components/Header';
 import { userProvider } from '../../providers/userProvider';
 import { Navigation } from '../../types';
 import HelplinesCardWidget from '../../widgets/HelplinesCardWidget';
+import SettingsCardWidget from '../../widgets/SettingsCardWidget';
 import UserDataCardWidget from '../../widgets/UserDataCardWidget';
 
 type Props = {
@@ -19,6 +20,7 @@ const ProfileScreen = ({ navigation }: Props) => (
 
     <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 85 }}>
       <UserDataCardWidget />
+      <SettingsCardWidget />
       <HelplinesCardWidget />
       <Button mode="contained" onPress={() => userProvider.logout()}>
         Log out

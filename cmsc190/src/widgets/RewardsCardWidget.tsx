@@ -1,4 +1,5 @@
-import { Reward, repo, theme } from 'core';
+import { repo } from 'client';
+import { Reward, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import React from 'react';

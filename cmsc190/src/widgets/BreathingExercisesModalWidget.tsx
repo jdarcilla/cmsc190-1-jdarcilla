@@ -1,10 +1,10 @@
+import { repo } from 'client';
 import {
   BreathingExercise,
   Meditation,
   MeditationStat,
   breathingExerciseLabel,
   idFactory,
-  repo,
   theme,
 } from 'core';
 import { DateTime } from 'luxon';
@@ -51,7 +51,7 @@ const BreathingExercisesModalWidget = ({ dismiss }: Props) => {
       exercise.audio.pause();
       setPlaying(false);
     } else {
-      exercise.audio.play(success => {
+      exercise.audio.play((success: any) => {
         if (!success)
           ToastAndroid.show('Failed to play audio.', ToastAndroid.SHORT);
       });

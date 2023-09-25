@@ -1,4 +1,5 @@
-import { Answer, Question, getScore, repo, theme } from 'core';
+import { repo } from 'client';
+import { Answer, Question, getScore, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import React from 'react';

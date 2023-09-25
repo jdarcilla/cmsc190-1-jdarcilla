@@ -1,3 +1,4 @@
+import { repo } from 'client';
 import {
   JournalEntry,
   Mood,
@@ -6,7 +7,6 @@ import {
   idFactory,
   journalEntrySchema,
   moods,
-  repo,
   theme,
 } from 'core';
 import { DateTime } from 'luxon';

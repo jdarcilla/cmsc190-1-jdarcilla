@@ -1,4 +1,5 @@
-import { JournalEntry, repo } from 'core';
+import { repo } from 'client';
+import { JournalEntry } from 'core';
 import { DateTime } from 'luxon';
 import { computed, makeAutoObservable } from 'mobx';
 import { IResource } from 'mobx-utils';

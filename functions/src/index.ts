@@ -1,15 +1,31 @@
-import * as functions from "firebase-functions";
-// // Start writing functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+/* eslint-disable @typescript-eslint/no-var-requires */
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 
-exports.sendNotification = functions.pubsub
-  .schedule("*/2 * * * *")
+admin.initializeApp();
+
+const {
+  sendGoalNotification,
+  sendTestNotification,
+} = require("./messaging/sendNotification");
+const { createUser } = require("./user/createUser");
+
+exports.sendGoalNotification = functions.pubsub
+  .schedule("*/10 * * * *")
   .timeZone("Asia/Manila")
   .onRun(async () => {
-    functions.logger.log("NOTIFICATION FROM CLOUD FUNCTION");
+    functions.logger.log("GOAL NOTIFICATION FROM CLOUD FUNCTION");
+
+    await sendGoalNotification();
   });
+
+exports.sendTestNotification = functions.pubsub
+  .schedule("*/10 * * * *")
+  .timeZone("Asia/Manila")
+  .onRun(async () => {
+    functions.logger.log("TEST NOTIFICATION FROM CLOUD FUNCTION");
+
+    await sendTestNotification();
+  });
+
+exports.createUser = functions.auth.user().onCreate(createUser);

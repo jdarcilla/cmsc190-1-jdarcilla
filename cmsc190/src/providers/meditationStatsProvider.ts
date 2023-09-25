@@ -1,4 +1,5 @@
-import { MeditationStat, repo } from 'core';
+import { repo } from 'client';
+import { MeditationStat } from 'core';
 import { computed, makeAutoObservable } from 'mobx';
 import { IResource } from 'mobx-utils';
 import { dateTimeProvider } from './dateTimeProvider';

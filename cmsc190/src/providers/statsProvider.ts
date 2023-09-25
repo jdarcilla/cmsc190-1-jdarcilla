@@ -1,8 +1,8 @@
+import { repo } from 'client';
 import {
   Stats,
   getEnergyLevelFromMood,
   getPleasantnessLevelFromMood,
-  repo,
 } from 'core';
 import { computed, makeAutoObservable } from 'mobx';
 import { IResource } from 'mobx-utils';

@@ -1,4 +1,5 @@
-import { Stats, Task, idFactory, repo, taskSchema, theme } from 'core';
+import { repo } from 'client';
+import { Stats, Task, idFactory, taskSchema, theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { validate } from 'nutso';
@@ -89,10 +90,10 @@ const TaskEditModalWidget = ({ dismiss, task }: Props) => {
     }
   };
 
-  const onDelete = async () => {
+  const onDelete = () => {
     if (!userProvider.user) return;
     if (!task) return;
-    await repo.task.delete({
+    repo.task.delete({
       uid: userProvider.user.uid,
       taskId: task.id,
     });

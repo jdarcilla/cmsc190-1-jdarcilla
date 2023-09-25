@@ -1,7 +1,7 @@
 import firestore from "@react-native-firebase/firestore";
 import { fromResource, IResource } from "mobx-utils";
 import { ToastAndroid } from "react-native";
-import { firestoreApi } from "../firestoreApi";
+import { firestoreApi } from "../integration/firestoreApi";
 import { BaseRepo } from "./BaseRepo";
 
 export class DocumentRepo<K, T> extends BaseRepo<K, T> {

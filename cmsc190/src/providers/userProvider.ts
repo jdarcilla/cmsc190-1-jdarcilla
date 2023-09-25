@@ -1,5 +1,8 @@
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { repo } from 'client';
+import { User } from 'core';
 import { action, computed, makeAutoObservable, observable } from 'mobx';
+import { IResource } from 'mobx-utils';
 import { ToastAndroid } from 'react-native';
 
 class UserProvider {
@@ -11,6 +14,7 @@ class UserProvider {
       login: action,
       logout: action,
       displayName: computed,
+      userData: computed,
     });
   }
 
@@ -18,6 +22,11 @@ class UserProvider {
     if (!this.user) return '';
     if (!this.user.displayName) return '';
     return this.user.displayName;
+  }
+
+  get userData(): IResource<User | null | undefined> | undefined {
+    if (!this.user?.uid) return;
+    return repo.user.bind({ uid: this.user.uid });
   }
 
   login(user: FirebaseAuthTypes.User | null) {

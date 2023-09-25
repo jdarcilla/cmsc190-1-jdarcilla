@@ -10,7 +10,7 @@ const UserDataCardWidget = () => {
   if (!user) return <Text>Not signed in.</Text>;
 
   return (
-    <Card>
+    <Card cardStyles={styles.card}>
       <View style={styles.row}>
         <Text style={styles.textLabel}>Name:</Text>
         <Text style={styles.textValue}>{user.displayName}</Text>
@@ -24,15 +24,18 @@ const UserDataCardWidget = () => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    backgroundColor: theme.colors.primary,
+  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   textLabel: {
-    color: theme.colors.outline,
+    color: theme.colors.inversePrimary,
   },
   textValue: {
-    color: theme.colors.onSurface,
+    color: theme.colors.surface,
   },
 });
 

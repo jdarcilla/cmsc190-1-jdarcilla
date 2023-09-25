@@ -1,19 +1,23 @@
-import { JournalEntry } from '../models/JournalEntry';
 import {
+  JournalEntry,
   JournalEntryKey,
+  MeditationStat,
   MeditationStatKey,
+  Reward,
   RewardKey,
+  Stats,
+  Task,
   TaskKey,
+  User,
   UserKey,
-} from '../models/Keys';
-import { Reward } from '../models/Reward';
-import { MeditationStat, Stats } from '../models/Stats';
-import { Task } from '../models/Task';
-import { firestorePaths } from '../paths/firestorePaths';
-import { CollectionRepo } from './CollectionRepo';
-import { DocumentRepo } from './DocumentRepo';
+  firestorePaths,
+} from "core";
+import { CollectionRepo } from "./CollectionRepo";
+import { DocumentRepo } from "./DocumentRepo";
 
 export const repo = {
+  users: new CollectionRepo<void, User>(firestorePaths.users),
+  user: new DocumentRepo<UserKey, User>(firestorePaths.user),
   stats: new DocumentRepo<UserKey, Stats>(firestorePaths.stats),
   journalEntries: new CollectionRepo<UserKey, JournalEntry>(firestorePaths.journalEntries), // prettier-ignore
   journalEntry: new DocumentRepo<JournalEntryKey, JournalEntry>(firestorePaths.journalEntry), // prettier-ignore

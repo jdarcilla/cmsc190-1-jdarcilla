@@ -1,5 +1,5 @@
-const compile = require('string-template/compile');
-const extractValues = require('extract-values');
+const compile = require("string-template/compile");
+const extractValues = require("extract-values");
 
 export class FirestorePath<K, T> {
   template: string;

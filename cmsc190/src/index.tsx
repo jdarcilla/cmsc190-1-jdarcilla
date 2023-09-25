@@ -12,10 +12,12 @@ const Main = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!userProvider.user ? (
+        {!userProvider.user && !userProvider.userData ? (
           <Stack.Screen name="Auth" component={AuthLayout} />
         ) : (
-          <Stack.Screen name="Dashboard" component={DashboardLayout} />
+          <Stack.Screen name="Dashboard">
+            {props => <DashboardLayout userData={userProvider.userData} />}
+          </Stack.Screen>
         )}
       </Stack.Navigator>
     </NavigationContainer>

@@ -12,11 +12,15 @@
   "scripts": {
     "lint": "eslint .",
     "test": "jest",
-    "start-emulators": "firebase emulators:start --import e2e/localdata --export-on-exit",
-    "export-emulators": "firebase emulators:export e2e/localdata",
-    "kill-all": "lsof -t -i:4000 -i:9099 -i:5001 -i:8080 | xargs kill -9"
+    "run-android": "yarn workspace cmsc190 android",
+    "start-metro": "yarn workspace cmsc190 start",
+    "build-functions": "yarn workspace functions build",
+    "deploy-functions": "yarn workspace functions deploy",
+    "bundle-android": "cd cmsc190 && npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "build-android:debug": "cd cmsc190/android && ./gradlew assembleDebug",
+    "build-android:release": "cd cmsc190/android && ./gradlew assembleRelease"
   },
-  "workspaces": ["cmsc190", "core", "functions"],
+  "workspaces": ["cmsc190", "core", "functions", "client"],
   "resolutions": {
     "metro-config": "0.76.5"
   }
