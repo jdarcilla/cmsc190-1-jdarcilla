@@ -33,11 +33,10 @@ const DashboardLayout = ({ userData }: Props) => {
     const $userData = userData?.current();
     if (!$userData) return null;
 
-    const token = $userData.fcmToken;
+    const oldToken = $userData.fcmToken;
+    const fcmToken = await messaging().getToken();
 
-    if (!token) {
-      const fcmToken = await messaging().getToken();
-
+    if (oldToken !== fcmToken) {
       await repo.user.update($userData, { fcmToken });
     }
   };
