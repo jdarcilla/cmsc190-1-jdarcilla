@@ -67,7 +67,7 @@ const DiaryScreen = ({ navigation }: Props) => {
 
   return (
     <DashboardBackground>
-      <Header>Depressn't </Header>
+      <Header>Thrive</Header>
       {renderDate()}
       <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 85 }}>
         <ProgressCardWidget navigation={navigation} />

@@ -79,6 +79,7 @@ const LoginScreen = ({ navigation }: Props) => {
         buttonColor={theme.colors.surface}
         textColor={theme.colors.primary}
         style={styles.button}
+        disabled={!emailValidation.isValid || !passwordValidation.isValid}
         onPress={_onLoginPressed}>
         Login
       </Button>

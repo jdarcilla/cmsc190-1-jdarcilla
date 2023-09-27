@@ -92,6 +92,11 @@ const RegisterScreen = ({ navigation }: Props) => {
         mode="contained"
         buttonColor={theme.colors.surface}
         textColor={theme.colors.primary}
+        disabled={
+          !emailValidation.isValid ||
+          !nameValidation.isValid ||
+          !passwordValidation.isValid
+        }
         onPress={_onSignUpPressed}
         style={styles.button}>
         Sign Up

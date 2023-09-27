@@ -14,7 +14,7 @@ type Props = {
 const HomeScreen = ({ navigation }: Props) => (
   <Background>
     <Logo />
-    <Header style={{ color: theme.colors.onPrimary }}>Depressn't</Header>
+    <Header style={{ color: theme.colors.onPrimary }}>Thrive</Header>
 
     <Paragraph style={{ color: theme.colors.onPrimary, marginBottom: 20 }}>
       CBT app to manage your mental health.
