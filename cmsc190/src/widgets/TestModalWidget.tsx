@@ -7,7 +7,7 @@ import { StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import Button from '../components/Button';
 import Header from '../components/Header';
-import { bdiTestProvider } from '../providers/bdiTestProvider';
+import { phq9TestProvider } from '../providers/phq9TestProvider';
 import { statsProvider } from '../providers/statsProvider';
 import { userProvider } from '../providers/userProvider';
 
@@ -18,7 +18,7 @@ type Props = {
 const TestModalWidget = ({ dismiss }: Props) => {
   const stats = statsProvider.stats?.current();
   const testResults = stats?.testResults ?? [];
-  const questions = bdiTestProvider.questions;
+  const questions = phq9TestProvider.questions;
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     React.useState<number>(0);
   const [currentAnswers, setCurrentAnswers] = React.useState<Answer[]>([]);
@@ -43,7 +43,7 @@ const TestModalWidget = ({ dismiss }: Props) => {
   };
 
   const onSubmit = () => {
-    if (currentAnswers.length !== 21) {
+    if (currentAnswers.length !== 9) {
       ToastAndroid.show('Please answer all questions', ToastAndroid.SHORT);
       return;
     }
@@ -153,14 +153,14 @@ const TestModalWidget = ({ dismiss }: Props) => {
       <View key={index} style={styles.answer}>
         <RadioButton value={`${questionIndex}-${index}`} />
         <View style={{ flex: 1 }}>
-          <Text>{answer.label}</Text>
+          <Text style={{ color: theme.colors.onSurface }}>{answer.label}</Text>
         </View>
       </View>
     );
   };
 
   const renderActions = (): React.ReactNode => {
-    if (currentQuestionIndex === 20)
+    if (currentQuestionIndex === 8)
       return (
         <View style={{ marginVertical: 20 }}>
           <Button
@@ -170,7 +170,7 @@ const TestModalWidget = ({ dismiss }: Props) => {
           </Button>
           <Button
             mode="contained"
-            disabled={currentAnswers.length !== 21}
+            disabled={currentAnswers.length !== 9}
             onPress={onSubmit}>
             Submit
           </Button>
@@ -204,17 +204,11 @@ const TestModalWidget = ({ dismiss }: Props) => {
   return (
     <View style={{ padding: 20, paddingTop: 0 }}>
       <Header style={{ fontSize: theme.fonts.titleLarge.fontSize }}>
-        BDI-II
+        {`Patient Health Questionnaire - 9 (PHQ-9)`}
       </Header>
       <Text style={styles.instructions}>
-        Instructions: This questionnaire consists of 21 groups of statements.
-        Please read each group of statements carefully. And then select one
-        statement in each group that best describes the way you have been
-        feeling during the past two weeks, including today. If several
-        statements in the group seem to apply equally well, select the last
-        choice for that group. Be sure that you do not choose more than one
-        statement for any group, including Item 16 (Changes in Sleeping Pattern)
-        or Item 18 (Changes in Appetite).
+        Over the last 2 weeks, how often have you been bothered by any of the
+        following problems?
       </Text>
       {renderQuestion({
         question: questions[currentQuestionIndex],
@@ -226,12 +220,13 @@ const TestModalWidget = ({ dismiss }: Props) => {
 
 const styles = StyleSheet.create({
   instructions: {
-    fontFamily: theme.fonts.labelMedium.fontFamily,
-    fontSize: theme.fonts.labelMedium.fontSize,
-    fontWeight: theme.fonts.labelMedium.fontWeight,
-    color: theme.colors.outlineVariant,
+    fontFamily: theme.fonts.labelLarge.fontFamily,
+    fontSize: theme.fonts.labelLarge.fontSize,
+    fontWeight: theme.fonts.labelLarge.fontWeight,
+    color: theme.colors.outline,
 
     marginBottom: 6,
+    textAlign: 'center',
   },
   answer: {
     flexDirection: 'row',

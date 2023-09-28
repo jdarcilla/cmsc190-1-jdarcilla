@@ -1,7 +1,6 @@
 import { DateTime } from "luxon";
-import { Answer } from "./models/BDI-II";
 import { JournalEntry, JournalEntryEvent, Mood } from "./models/JournalEntry";
-import { ScoreInterpretation } from "./models/ScoreInterpretation";
+import { Answer } from "./models/Test";
 import { theme } from "./theme";
 
 /**
@@ -96,17 +95,6 @@ export const getPleasantnessLevelFromMood = (mood: Mood): number => {
     default:
       return 0;
   }
-};
-
-export const getScoreInterpretation = (
-  score: number | undefined
-): ScoreInterpretation | undefined => {
-  if (score === undefined) return;
-  if (score <= 13) return ScoreInterpretation.minimal;
-  if (score >= 14 && score <= 19) return ScoreInterpretation.mild;
-  if (score >= 20 && score <= 28) return ScoreInterpretation.moderate;
-  if (score >= 29 && score <= 63) return ScoreInterpretation.severe;
-  return;
 };
 
 export const getScore = (answers: Answer[]): number => {

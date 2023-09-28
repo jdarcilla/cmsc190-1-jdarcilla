@@ -1,4 +1,4 @@
-import { getScoreInterpretation, scoreInterpretationLabel, theme } from 'core';
+import { theme } from 'core';
 import { DateTime } from 'luxon';
 import { observer } from 'mobx-react-lite';
 import { StyleSheet, Text, View } from 'react-native';
@@ -14,29 +14,17 @@ const TestResultCardWidget = () => {
   const latestTestResult = testResults.slice(-1)[0];
 
   const renderResult = (): React.ReactNode => {
-    const scoreInterpretation = getScoreInterpretation(latestTestResult?.score);
-
     return (
       <View style={styles.resultContainer}>
-        <Text style={styles.score}>{latestTestResult?.score ?? '--'}/63</Text>
+        <Text style={styles.score}>{latestTestResult?.score ?? '--'}/27</Text>
         <View style={styles.textGroup}>
+          <Text style={styles.text}>PHQ-9 Result</Text>
           <Text style={styles.text}>
-            BDI-II Result
             {latestTestResult?.lastUpdatedIsoDateUtc
-              ? ` (${DateTime.fromISO(
+              ? `(${DateTime.fromISO(
                   latestTestResult.lastUpdatedIsoDateUtc
                 ).toLocaleString(DateTime.DATE_MED)})`
               : ''}
-            :
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              { fontSize: theme.fonts.titleMedium.fontSize },
-            ]}>
-            {scoreInterpretation
-              ? scoreInterpretationLabel[scoreInterpretation]
-              : 'Invalid data'}
           </Text>
         </View>
       </View>
@@ -80,7 +68,9 @@ const styles = StyleSheet.create({
   },
   resultContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
+    gap: 14,
   },
   score: {
     fontSize: theme.fonts.displayMedium.fontSize,
@@ -88,14 +78,12 @@ const styles = StyleSheet.create({
     color: theme.colors.onPrimary,
   },
   textGroup: {
-    paddingLeft: 14,
     justifyContent: 'center',
-    alignItems: 'flex-start',
   },
   text: {
     color: theme.colors.onPrimary,
-    fontSize: theme.fonts.bodyMedium.fontSize,
-    fontFamily: theme.fonts.bodyMedium.fontFamily,
+    fontSize: theme.fonts.bodyLarge.fontSize,
+    fontFamily: theme.fonts.bodyLarge.fontFamily,
   },
 });
 

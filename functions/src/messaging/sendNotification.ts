@@ -81,12 +81,36 @@ export const sendGoalNotification = async () => {
 export const sendTestNotification = async () => {
   const users = await repo.users.listAllValues_UNSAFE();
 
-  const tokens = users.reduce<string[]>((arr, user) => {
-    if (user.notificationEnabled && user.fcmToken) {
-      return [...arr, user.fcmToken];
+  let tokens: string[] = [];
+
+  for (const user of users) {
+    if (!user.notificationEnabled) continue;
+
+    if (!user.fcmToken) continue;
+
+    const stats = await repo.stats.get(user);
+
+    if (!stats?.testResults || !stats.testResults.length) {
+      tokens = [...tokens, user.fcmToken];
+      continue;
     }
-    return arr;
-  }, []);
+
+    const latestTestResult = stats.testResults.slice(-1)[0];
+    const latestTestResultDate = new Date(
+      latestTestResult.lastUpdatedIsoDateUtc
+    );
+
+    const nextTestDate = new Date(latestTestResult.lastUpdatedIsoDateUtc);
+    nextTestDate.setDate(latestTestResultDate.getDate() + 28);
+    const nextTestDateString = nextTestDate.toDateString();
+
+    const currentDateString = new Date().toDateString();
+
+    if (new Date(currentDateString) >= new Date(nextTestDateString)) {
+      tokens = [...tokens, user.fcmToken];
+      continue;
+    }
+  }
 
   await admin.messaging().sendEachForMulticast({
     tokens,
